@@ -1,0 +1,22 @@
+{
+  "A Japanese text normalization library you've always needed": "ずっと欲しかった文字正規化ライブラリ",
+  "Yosina is a transliteration library that deals with the Japanese characters and symbols.": "Yosinaは日本語の文字や記号を扱う翻字ライブラリです。",
+  "See it in action:": "実際に使ってみましょう",
+  "Halfwidth to Fullwidth (U+005C treated as Yen sign)": "半角から全角へ (U+005Cは円記号として扱う)",
+  "Fullwidth to Halfwidth": "全角から半角へ",
+  "Fullwidth to Halfwidth (including halfwidth katakana)": "全角から半角へ（半角カタカナも含む）",
+  "Hiragana to Katakana": "ひらがなからカタカナへ",
+  "Katakana to Hiragana": "カタカナからひらがなへ",
+  "Replace composed characters": "合成文字を置換",
+  "Replace circled or squared characters": "丸囲み・角囲み文字を置換",
+  "Normalize hyphens": "ハイフンを正規化",
+  "Replace traditiona kanjis to new style ones": "旧字体の漢字を新字体に置換",
+  "None selected; click here to add transliteration options": "未選択です。ここをクリックして翻字オプションを追加してください",
+  "Insert example text": "例文を挿入",
+  "Actual code examples:": "コードの例",
+  "Code": "コード",
+  "Specification": "仕様",
+  "Yosina on GitHub": "GitHubでYosinaを見る",
+  "Further reading:": "さらに詳しく",
+  "Transliterator specification": "翻字仕様"
+}

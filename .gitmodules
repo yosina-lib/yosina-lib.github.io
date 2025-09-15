@@ -1,0 +1,6 @@
+[submodule "yosina"]
+	path = yosina
+	url = git@github.com:yosina-lib/yosina.git
+[submodule "yosina-spec"]
+	path = yosina-spec
+	url = git@github.com:yosina-lib/yosina-spec.git
