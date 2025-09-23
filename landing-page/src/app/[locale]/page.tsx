@@ -34,21 +34,21 @@ export default async ({
     <div className="@container">
       <header className="flex h-10 flex-row items-center bg-gray-300 p-4 dark:bg-gray-800">
         <div className="flex-1 py-4 font-bold text-lg">Yosina</div>
-        <div className="flex space-x-4 text-sm">
+        <div className="flex space-x-4 text-xs">
           <a
-            className="whitespace-nowrap text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
+            className="block whitespace-nowrap text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
             title={catalog["Yosina on GitHub"]}
             href={config.repoUrl}
           >
-            <IoLogoGithub className="mr-1 ml-0 inline-block h-6 w-6 rtl:mr-0 rtl:ml-1" />
+            <IoLogoGithub className="mr-1 ml-0 inline-block h-5 w-5 rtl:mr-0 rtl:ml-1" />
             {catalog.Code}
           </a>
           <a
-            className="whitespace-nowrap text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
+            className="block whitespace-nowrap text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
             title={catalog["Transliterator specification"]}
             href="spec"
           >
-            <IoBook className="mr-1 ml-0 inline-block h-6 w-6 rtl:mr-0 rtl:ml-1" />
+            <IoBook className="mr-1 ml-0 inline-block h-5 w-5 rtl:mr-0 rtl:ml-1" />
             {catalog.Specification}
           </a>
         </div>
@@ -84,7 +84,7 @@ export default async ({
             <li className="mb-1">
               <a
                 className="hover:underline dark:text-blue-400"
-                href="{config.repoUrl}"
+                href={config.repoUrl}
               >
                 {catalog["Yosina on GitHub"]}
               </a>

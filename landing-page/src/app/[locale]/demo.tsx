@@ -358,12 +358,13 @@ const OptionsChooser: FunctionComponent<OptionChooserProps> = ({
         {/** biome-ignore lint/a11y/noStaticElementInteractions: alternative interation provided elsewhere */}
         {/** biome-ignore lint/a11y/useKeyWithClickEvents: alternative interation provided elsewhere */}
         <div
-          className="fixed top-0 right-0 bottom-0 left-0 block bg-gray-900 opacity-30 sm:bg-transparent md:hidden dark:bg-gray-100 dark:sm:bg-transparent"
+          className="fixed top-0 right-0 bottom-0 left-0 sm:bg-transparent md:hidden"
           title="Close option chooser"
           onClick={onModalCloseButtonClicked}
         >
+          <div className="absolute inset-0 bg-gray-900 opacity-30 opacity-50 dark:bg-gray-100 dark:sm:bg-transparent"></div>
           <button
-            className="absolute top-0 right-0 block px-3 py-2 text-gray-200 sm:hidden dark:text-gray-800"
+            className="absolute top-0 right-0 block px-3 py-2 font-bold text-gray-200 sm:hidden dark:text-gray-800"
             type="button"
           >
             &#x2715;
