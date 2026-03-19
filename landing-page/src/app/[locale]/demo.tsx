@@ -26,6 +26,10 @@ type RecipeViewModel = {
   replaceCircledOrSquaredCharacters: boolean;
   replaceHyphens: boolean;
   kanjiOldNew: boolean;
+  replaceSmallHirakatas: boolean;
+  replaceArchaicHirakatas: boolean;
+  convertHistoricalHirakatasSimple: boolean;
+  convertHistoricalHirakatasDecompose: boolean;
   text: string;
 };
 
@@ -57,6 +61,15 @@ const getExampleText = (recipe: TransliterationRecipe): string => {
   if (recipe.kanjiOldNew) {
     result.push("舊字體");
   }
+  if (recipe.replaceSmallHirakatas) {
+    result.push("ぁぃぅぇぉァィゥェォ");
+  }
+  if (recipe.replaceArchaicHirakatas) {
+    result.push("𛀁𛀂𛀃");
+  }
+  if (recipe.convertHistoricalHirakatas) {
+    result.push("ゐゑヰヱ");
+  }
   return result.join("");
 };
 
@@ -70,6 +83,10 @@ const buildRecipeFromRecipeViewModel = ({
   replaceCircledOrSquaredCharacters,
   replaceHyphens,
   kanjiOldNew,
+  replaceSmallHirakatas,
+  replaceArchaicHirakatas,
+  convertHistoricalHirakatasSimple,
+  convertHistoricalHirakatasDecompose,
 }: RecipeViewModel): TransliterationRecipe => ({
   toFullwidth: toFullwidth ? "u005c-as-yen-sign" : false,
   toHalfwidth: toHalfwidthIncludingHalfwidthKatakanas
@@ -84,6 +101,13 @@ const buildRecipeFromRecipeViewModel = ({
   replaceCircledOrSquaredCharacters,
   replaceHyphens,
   kanjiOldNew,
+  replaceSmallHirakatas,
+  replaceArchaicHirakatas,
+  convertHistoricalHirakatas: convertHistoricalHirakatasDecompose
+    ? "decompose"
+    : convertHistoricalHirakatasSimple
+      ? "simple"
+      : undefined,
 });
 
 type PartialUseFormReturnType<T extends FieldValues> = {
@@ -201,6 +225,36 @@ const OptionsChooserInner: FunctionComponent<
           {...register("kanjiOldNew")}
         />
       </div>
+      <div className={fieldContainerClassName}>
+        <CheckboxAndLabel
+          label={catalog["Replace small kana with normal-sized ones"]}
+          {...register("replaceSmallHirakatas")}
+        />
+      </div>
+      <div className={fieldContainerClassName}>
+        <CheckboxAndLabel
+          label={catalog["Replace archaic kana (hentaigana)"]}
+          {...register("replaceArchaicHirakatas")}
+        />
+      </div>
+      <div className={fieldContainerClassName}>
+        <CheckboxAndLabel
+          label={catalog["Convert historical kana (simple)"]}
+          {...register("convertHistoricalHirakatasSimple", {
+            disabled: data.convertHistoricalHirakatasDecompose,
+            deps: ["convertHistoricalHirakatasDecompose"],
+          })}
+        />
+      </div>
+      <div className={fieldContainerClassName}>
+        <CheckboxAndLabel
+          label={catalog["Convert historical kana (decompose)"]}
+          {...register("convertHistoricalHirakatasDecompose", {
+            disabled: data.convertHistoricalHirakatasSimple,
+            deps: ["convertHistoricalHirakatasSimple"],
+          })}
+        />
+      </div>
     </div>
   );
 };
@@ -257,6 +311,34 @@ const RenderOptionsInner: FunctionComponent<{ values: RecipeViewModel }> = ({
     components.push(
       <span key="replaceCircledOrSquaredCharacters">
         {catalog["Replace circled or squared characters"]}
+      </span>,
+    );
+  }
+  if (values.replaceSmallHirakatas) {
+    components.push(
+      <span key="replaceSmallHirakatas">
+        {catalog["Replace small kana with normal-sized ones"]}
+      </span>,
+    );
+  }
+  if (values.replaceArchaicHirakatas) {
+    components.push(
+      <span key="replaceArchaicHirakatas">
+        {catalog["Replace archaic kana (hentaigana)"]}
+      </span>,
+    );
+  }
+  if (values.convertHistoricalHirakatasSimple) {
+    components.push(
+      <span key="convertHistoricalHirakatasSimple">
+        {catalog["Convert historical kana (simple)"]}
+      </span>,
+    );
+  }
+  if (values.convertHistoricalHirakatasDecompose) {
+    components.push(
+      <span key="convertHistoricalHirakatasDecompose">
+        {catalog["Convert historical kana (decompose)"]}
       </span>,
     );
   }
@@ -404,6 +486,10 @@ export const Demo: FunctionComponent<{
         replaceCircledOrSquaredCharacters: false,
         replaceHyphens: false,
         kanjiOldNew: false,
+        replaceSmallHirakatas: false,
+        replaceArchaicHirakatas: false,
+        convertHistoricalHirakatasSimple: false,
+        convertHistoricalHirakatasDecompose: false,
         text: "",
       },
     });

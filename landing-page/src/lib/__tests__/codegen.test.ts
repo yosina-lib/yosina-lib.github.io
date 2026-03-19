@@ -367,15 +367,16 @@ describe("Code Generation Tests", () => {
         try {
           result = await config.buildWrapper(code, tempDir);
         } catch (error) {
-          // If the toolchain is not available, skip the test
+          // If the toolchain is not available or does not meet requirements, skip the test
           if (
             error instanceof Error &&
             (error.message.includes("command not found") ||
               error.message.includes("not found") ||
-              error.message.includes("not recognized"))
+              error.message.includes("not recognized") ||
+              error.message.includes("requires"))
           ) {
             console.warn(
-              `${config.name} toolchain not available, skipping build test`,
+              `${config.name} toolchain not available, skipping build test: ${error.message}`,
             );
             return;
           }

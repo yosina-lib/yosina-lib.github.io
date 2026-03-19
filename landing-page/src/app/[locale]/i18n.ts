@@ -17,6 +17,11 @@ const defaultCatalog = {
   "Normalize hyphens": "Normalize hyphens",
   "Replace traditiona kanjis to new style ones":
     "Replace traditiona kanjis to new style ones",
+  "Replace small kana with normal-sized ones":
+    "Replace small kana with normal-sized ones",
+  "Replace archaic kana (hentaigana)": "Replace archaic kana (hentaigana)",
+  "Convert historical kana (simple)": "Convert historical kana (simple)",
+  "Convert historical kana (decompose)": "Convert historical kana (decompose)",
   "None selected; click here to add transliteration options":
     "None selected; click here to add transliteration options",
   "Insert example text": "Insert example text",

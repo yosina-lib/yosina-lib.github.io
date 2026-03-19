@@ -56,7 +56,7 @@ export const build = async <T>(
   wrapper: BuildWrapper<T>,
   context: BuildContext<T>,
 ): Promise<BuildResult> => {
-  mkdir(context.projectDir, { recursive: true });
+  await mkdir(context.projectDir, { recursive: true });
   try {
     await wrapper.checkPrerequisites(context, { execAsync });
     context = {
