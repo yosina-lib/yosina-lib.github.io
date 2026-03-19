@@ -9,8 +9,14 @@ function getLocale(request: NextRequest) {
 }
 
 export const middleware = (request: NextRequest): NextResponse | undefined => {
-  // Check if there is any supported locale in the pathname
   const { pathname } = request.nextUrl;
+
+  // Skip internal paths (_next)
+  if (pathname.startsWith("/_next")) {
+    return undefined;
+  }
+
+  // Check if there is any supported locale in the pathname
   const pathnameHasLocale = supportedLocales.some(
     (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`,
   );
@@ -22,16 +28,5 @@ export const middleware = (request: NextRequest): NextResponse | undefined => {
   // Redirect if there is no locale
   const locale = getLocale(request);
   request.nextUrl.pathname = `/${locale}${pathname}`;
-  // e.g. incoming request is /products
-  // The new URL is now /en-US/products
   return NextResponse.redirect(request.nextUrl);
-};
-
-export const config = {
-  matcher: [
-    // Skip all internal paths (_next)
-    "/((?!_next).*)",
-    // Optional: only run on root (/) URL
-    // '/'
-  ],
 };
