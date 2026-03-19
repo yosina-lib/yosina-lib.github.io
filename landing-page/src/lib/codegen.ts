@@ -92,9 +92,14 @@ const codeExampleRenderers: {
           }
           return [];
         }
-        // HiraKata is a string field in Go
+        // HiraKata uses TransliterationRecipeOptionValue enum in Go
         if (key === "hiraKata" && typeof value === "string") {
-          return [`r.${goKey} = "${value}"`];
+          if (value === "hira-to-kata") {
+            return [`r.${goKey} = recipe.HiraToKata`];
+          } else if (value === "kata-to-hira") {
+            return [`r.${goKey} = recipe.KataToHira`];
+          }
+          return [];
         }
         // ReplaceCircledOrSquaredCharacters uses TransliterationRecipeOptionValue
         if (key === "replaceCircledOrSquaredCharacters" && value === true) {
@@ -213,6 +218,21 @@ const codeExampleRenderers: {
             return ["hira_kata: HiraKataOptions::HiraToKata"];
           } else if (value === "kata-to-hira") {
             return ["hira_kata: HiraKataOptions::KataToHira"];
+          }
+          return [];
+        } else if (
+          rustKey === "convert_historical_hirakatas" &&
+          typeof value === "string"
+        ) {
+          usedTypes.add("ConvertHistoricalHirakatasOptions");
+          if (value === "simple") {
+            return [
+              "convert_historical_hirakatas: ConvertHistoricalHirakatasOptions::Simple",
+            ];
+          } else if (value === "decompose") {
+            return [
+              "convert_historical_hirakatas: ConvertHistoricalHirakatasOptions::Decompose",
+            ];
           }
           return [];
         }
@@ -501,92 +521,68 @@ const codeExampleRenderers: {
   `;
   },
   swift: (recipeAndText) => {
-    /*
-    const argsContent = (() => {
-      const recipeArgs = Object.entries(recipeAndText.recipe)
-        .flatMap(([key, value]) => {
-          if (value === undefined || value === false) return [];
-          if (key === "toFullwidth") {
-            // Swift uses ToFullwidthOptions struct
-            if (value === true) {
-              return [`${key}: .enabled`];
-            } else if (value === "u005c-as-yen-sign") {
-              return [`${key}: .u005cAsYenSign`];
-            } else {
-              return [`${key}: .disabled`];
-            }
+    const recipeArgs = Object.entries(recipeAndText.recipe)
+      .flatMap(([key, value]) => {
+        if (value === undefined || value === false) return [];
+        if (key === "toFullwidth") {
+          if (value === true) {
+            return [`${key}: .enabled`];
+          } else if (value === "u005c-as-yen-sign") {
+            return [`${key}: .u005cAsYenSign`];
+          } else {
+            return [`${key}: .disabled`];
           }
-          if (key === "toHalfwidth") {
-            // Swift uses ToHalfwidthOptions struct
-            if (value === true) {
-              return [`${key}: .enabled`];
-            } else if (value === "hankaku-kana") {
-              return [`${key}: .hankakuKana`];
-            }
-            return [];
+        }
+        if (key === "toHalfwidth") {
+          if (value === true) {
+            return [`${key}: .enabled`];
+          } else if (value === "hankaku-kana") {
+            return [`${key}: .hankakuKana`];
           }
-          if (key === "hiraKata") {
-            switch (value) {
-              case "hira-to-kata":
-                return [`${key}: .hiraToKata`];
-              case "kata-to-hira":
-                return [`${key}: .kataToHira`];
-            }
+          return [];
+        }
+        if (key === "hiraKata") {
+          switch (value) {
+            case "hira-to-kata":
+              return [`${key}: .hiraToKata`];
+            case "kata-to-hira":
+              return [`${key}: .kataToHira`];
           }
-          return [`${key}: ${typeof value === "string" ? `"${value}"` : value}`];
-        })
-        .join(",\n            ");
+        }
+        if (key === "replaceCircledOrSquaredCharacters") {
+          if (value) {
+            return [`${key}: .enabled`];
+          }
+          return [];
+        }
+        if (key === "replaceHyphens") {
+          if (value) {
+            return [`${key}: .enabled`];
+          }
+          return [];
+        }
+        if (key === "removeIVSSVS") {
+          if (value) {
+            return ["removeIvsSvs: .enabled"];
+          }
+          return [];
+        }
+        if (key === "convertHistoricalHirakatas" && typeof value === "string") {
+          if (value === "simple") {
+            return [`${key}: .simple`];
+          } else if (value === "decompose") {
+            return [`${key}: .decompose`];
+          }
+          return [];
+        }
+        return [`${key}: ${typeof value === "string" ? `"${value}"` : value}`];
+      })
+      .join(",\n            ");
 
-      return recipeArgs
-        ? `\n            ${recipeArgs}\n        `
-        : "";
-    })();
-    */
-    const argsContent = (() => {
-      const recipeArgs = Object.entries(recipeAndText.recipe)
-        .flatMap(([key, value]) => {
-          if (value === undefined || value === false) return [];
-          if (key === "toFullwidth") {
-            // Swift uses ToFullwidthOptions struct
-            if (value === true) {
-              return [`recipe.${key} = .enabled`];
-            } else if (value === "u005c-as-yen-sign") {
-              return [`recipe.${key} = .u005cAsYenSign`];
-            } else {
-              return [`recipe.${key} = .disabled`];
-            }
-          }
-          if (key === "toHalfwidth") {
-            // Swift uses ToHalfwidthOptions struct
-            if (value === true) {
-              return [`recipe.${key} = .enabled`];
-            } else if (value === "hankaku-kana") {
-              return [`recipe.${key} = .hankakuKana`];
-            }
-            return [];
-          }
-          if (key === "hiraKata") {
-            switch (value) {
-              case "hira-to-kata":
-                return [`recipe.${key} = .hiraToKata`];
-              case "kata-to-hira":
-                return [`recipe.${key} = .kataToHira`];
-            }
-          }
-          if (key === "replaceCircledOrSquaredCharacters") {
-            if (value) {
-              return [`recipe.${key} = .enabled`];
-            }
-            return [];
-          }
-          return [
-            `recipe.${key} = ${typeof value === "string" ? `"${value}"` : value}`,
-          ];
-        })
-        .join("\n        ");
+    const argsContent = recipeArgs
+      ? `\n            ${recipeArgs}\n        `
+      : "";
 
-      return recipeArgs;
-    })();
     const inputText = recipeAndText.text || "こんにちは世界";
     const escapedInputText = escapeForDoubleQuotedString(inputText);
 
@@ -596,8 +592,7 @@ const codeExampleRenderers: {
 
     do {
         // Create a recipe with the same options from the demo
-        var recipe = TransliterationRecipe()
-        ${argsContent}
+        let recipe = TransliterationRecipe(${argsContent})
 
         let transliterator = try recipe.makeTransliterator()
         let result = transliterator.transliterate("${escapedInputText}")
