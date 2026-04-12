@@ -1,0 +1,60 @@
+diff --git a/_config.ts b/_config.ts
+index 6b0b6cd9..d1f652ef 100644
+--- a/_config.ts
++++ b/_config.ts
+@@ -118,6 +118,26 @@ export default lume({
+       page.text = newContent;
+     }
+   })
++  .process([".html"], (pages) => {
++    for (const page of pages) {
++      if (!page.outputPath?.endsWith(".html")) continue;
++      const doc = page.document;
++      if (!doc) continue;
++
++      const menuContainer = doc.querySelector(".menu-container");
++      if (!menuContainer) continue;
++
++      const lang = String(page.data.url).startsWith("/ja/") ? "ja" : "en";
++      const label = lang === "ja" ? "APIリファレンス" : "API Reference";
++
++      const link = doc.createElement("a");
++      link.setAttribute("class", "menu-api-link");
++      link.setAttribute("href", `/${lang}/api/`);
++      link.textContent = label;
++
++      menuContainer.appendChild(link);
++    }
++  })
+   .use(modifyUrls({
+     fn: (url) => {
+       const m = langPrefixedRegexp.exec(url);
+diff --git a/src/styles.css b/src/styles.css
+index ccd8128f..f8bd5a1f 100644
+--- a/src/styles.css
++++ b/src/styles.css
+@@ -170,4 +170,23 @@ main {
+ 
+ html, body {
+   overflow-wrap: normal;
++}
++
++.menu-api-link {
++  font: var(--font-small);
++  display: flex;
++  align-items: center;
++  justify-content: center;
++  text-decoration: none;
++  border: solid 1px var(--color-line);
++  border-radius: var(--border-radius);
++  padding: 0.5rem;
++  margin-right: 1rem;
++  margin-top: 1rem;
++  color: inherit;
++
++  &:hover {
++    text-decoration: underline;
++    background: var(--color-line);
++  }
+ }
+\ No newline at end of file

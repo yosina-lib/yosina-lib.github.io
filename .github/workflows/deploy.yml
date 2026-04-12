@@ -19,9 +19,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
-          submodules: true
+          submodules: recursive
+
+      # --- Landing page & spec toolchains ---
       - name: Setup Node.js
         uses: actions/setup-node@v5
         with:
@@ -32,9 +34,58 @@ jobs:
         uses: denoland/setup-deno@v2
         with:
           deno-version: "2.5.1"
-      - name: Locally install packages
-        run: |
-          cd landing-page && npm ci 
+
+      # --- API doc toolchains ---
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+      - name: Setup Dart
+        uses: dart-lang/setup-dart@v1
+        with:
+          sdk: stable
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.24.4"
+          cache-dependency-path: "yosina/go/go.sum"
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: "17"
+          distribution: "temurin"
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.2"
+          extensions: mbstring, intl
+          tools: composer
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v4
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.1"
+          bundler-cache: true
+          working-directory: "yosina/ruby"
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+      - name: Setup Swift
+        uses: swift-actions/setup-swift@v2
+        with:
+          swift-version: "6.1"
+      - name: Install docfx
+        run: dotnet tool install -g docfx
+
+      # --- Build ---
+      - name: Install landing page dependencies
+        run: cd landing-page && npm ci
       - name: Build site
         run: make
       - name: Upload artifact

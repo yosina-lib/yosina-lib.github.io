@@ -31,6 +31,10 @@ const defaultCatalog = {
   "Yosina on GitHub": "Yosina on GitHub",
   "Further reading:": "Further reading:",
   "Transliterator specification": "Transliterator specification",
+  "API Reference": "API Reference",
+  "Back to home": "Back to home",
+  "Browse the Yosina API documentation for each language implementation.":
+    "Browse the Yosina API documentation for each language implementation.",
 };
 
 export type SupportedLocales = "en" | "ja";
