@@ -22,5 +22,8 @@
   "Specification": "仕様",
   "Yosina on GitHub": "GitHubでYosinaを見る",
   "Further reading:": "さらに詳しく",
-  "Transliterator specification": "翻字仕様"
+  "Transliterator specification": "翻字仕様",
+  "API Reference": "APIリファレンス",
+  "Back to home": "ホームに戻る",
+  "Browse the Yosina API documentation for each language implementation.": "各言語実装のYosina APIドキュメントを参照できます。"
 }

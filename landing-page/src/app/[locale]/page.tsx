@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { IoBook, IoLogoGithub } from "react-icons/io5";
+import { IoBook, IoCodeSlash, IoLogoGithub } from "react-icons/io5";
 import DemoSections from "./demo-sections";
 import type { SupportedLocales } from "./i18n";
 import { getCatalog } from "./i18n";
@@ -37,19 +37,27 @@ export default async ({
         <div className="flex space-x-4 text-xs">
           <a
             className="block whitespace-nowrap text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
-            title={catalog["Yosina on GitHub"]}
-            href={config.repoUrl}
-          >
-            <IoLogoGithub className="mr-1 ml-0 inline-block h-5 w-5 rtl:mr-0 rtl:ml-1" />
-            {catalog.Code}
-          </a>
-          <a
-            className="block whitespace-nowrap text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
             title={catalog["Transliterator specification"]}
             href="spec"
           >
             <IoBook className="mr-1 ml-0 inline-block h-5 w-5 rtl:mr-0 rtl:ml-1" />
             {catalog.Specification}
+          </a>
+          <a
+            className="block whitespace-nowrap text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
+            title={catalog["API Reference"]}
+            href="api/"
+          >
+            <IoCodeSlash className="mr-1 ml-0 inline-block h-5 w-5 rtl:mr-0 rtl:ml-1" />
+            {catalog["API Reference"]}
+          </a>
+          <a
+            className="block whitespace-nowrap text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
+            title={catalog["Yosina on GitHub"]}
+            href={config.repoUrl}
+          >
+            <IoLogoGithub className="mr-1 ml-0 inline-block h-5 w-5 rtl:mr-0 rtl:ml-1" />
+            {catalog.Code}
           </a>
         </div>
       </header>
@@ -79,6 +87,11 @@ export default async ({
             <li>
               <a className="hover:underline dark:text-blue-400" href="spec/">
                 {catalog["Transliterator specification"]}
+              </a>
+            </li>
+            <li>
+              <a className="hover:underline dark:text-blue-400" href="api/">
+                {catalog["API Reference"]}
               </a>
             </li>
             <li className="mb-1">
