@@ -53,6 +53,7 @@ const codeExampleRenderers: {
       : "";
 
     return `
+    // npm install @yosina-lib/yosina
     import { makeTransliterator, TransliterationRecipe } from '@yosina-lib/yosina';
 
     async function main() {
@@ -127,6 +128,7 @@ const codeExampleRenderers: {
       : "";
 
     return `
+    // go get github.com/yosina-lib/yosina/go
     package main
 
     import (
@@ -263,6 +265,7 @@ const codeExampleRenderers: {
         : "";
 
     return `
+    // cargo add yosina
     use yosina::{make_transliterator, TransliterationRecipe};
     ${useStatement}
     fn main() {
@@ -296,6 +299,7 @@ const codeExampleRenderers: {
     const argsContent = recipeArgs ? `\n        ${recipeArgs}\n    ` : "";
 
     return `
+    # pip install yosina
     from yosina import make_transliterator, TransliterationRecipe
 
     # Create a recipe with the same options from the demo
@@ -325,6 +329,7 @@ const codeExampleRenderers: {
     const paramsContent = recipeParams ? `\n      ${recipeParams}\n    ` : "";
 
     return `
+    # gem install yosina
     require 'yosina'
 
     # Create a recipe with the same options from the demo
@@ -393,6 +398,7 @@ const codeExampleRenderers: {
       : "()";
 
     return `
+    // dotnet add package Yosina
     using Yosina;
     using Yosina.Transliterators;
 
@@ -474,6 +480,7 @@ const codeExampleRenderers: {
       : "";
 
     return `
+    // implementation 'io.yosina:yosina'
     import io.yosina.TransliterationRecipe;
     import io.yosina.Yosina;
     import java.util.function.Function;
@@ -506,7 +513,7 @@ const codeExampleRenderers: {
 
     return `
     <?php
-    // composer install yosina-lib/yosina
+    // composer require yosina-lib/yosina
     require 'vendor/autoload.php';
     
     use Yosina\\TransliterationRecipe;
@@ -648,6 +655,7 @@ const codeExampleRenderers: {
       : "";
 
     return `
+    // dart pub add yosina
     import 'package:yosina/yosina.dart';
 
     void main() {
