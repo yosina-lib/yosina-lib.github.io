@@ -20,7 +20,7 @@ index 6b0b6cd9..d1f652ef 100644
 +
 +      const link = doc.createElement("a");
 +      link.setAttribute("class", "menu-api-link");
-+      link.setAttribute("href", `/${lang}/api/`);
++      link.setAttribute("href", `/${lang}/api`);
 +      link.textContent = label;
 +
 +      menuContainer.appendChild(link);
